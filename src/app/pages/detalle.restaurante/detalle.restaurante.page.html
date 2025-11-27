@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="medium">
+    <ion-button slot="start">
+      <ion-back-button defaultHref="/listado.restaurantes"></ion-back-button>
+    </ion-button>
+    <ion-button slot="end" color="danger" (click)="deleteRestaurante()">
+      <ion-icon name="trash-outline"></ion-icon>
+    </ion-button>
+      <ion-avatar slot="start" style="width: 100px;height: 100px;padding: 10px;">
+        <ion-img [src]="restaurante.logotipo"></ion-img>
+      </ion-avatar>
+    <ion-title>{{restaurante.nombre}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-title>{{titulos[0]}}</ion-title>
+      
+    </ion-row>
+    <ion-row>
+    <ion-col>
+      <ion-title>{{titulos[1]}}</ion-title>
+        <ion-list *ngIf="restaurante.comentarios != undefined && restaurante.comentarios.length>0; else nocomments">
+         <ion-item *ngFor="let comentario of restaurante.comentarios">
+            {{comentario}}
+         </ion-item>
+        </ion-list>
+        <ng-template #nocomments>
+          <p class="ion-text-center">No hay comentarios todavía...</p>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
