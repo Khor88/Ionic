@@ -12,6 +12,7 @@ import { restaurante } from '../../interface/restaurante.modelo';
 })
 export class DetalleRestaurantePage implements OnInit {
 
+  //Instanciamos el restaurante con el que vamos a trabajar
    restaurante:restaurante={
      nombre: '', logotipo: '', tenedores: 0, comentarios: [],
      descripcion: ''
@@ -19,12 +20,14 @@ export class DetalleRestaurantePage implements OnInit {
 
    titulos:string[]=["Sobre el lugar:","Comentarios","Tenedores"]
    tituloComentarios:string="Comentarios";
+   mensajes:string[]=["No hay información sobre el lugar todavia","No hay comentarios todavía..."]
 
   constructor(private activatedRouted: ActivatedRoute,
     private restauranteService: RestauranteService,
     private router: Router,
     private alertController: AlertController) { }
 
+  //En el metodo OnInit haremos que nuestro restaurante instanciado arriba se relleno con los datos del Nombre que hemos recivido
   ngOnInit() {
     this.activatedRouted.paramMap.subscribe(paramMap => {
       const recipeId:string|null = paramMap.get('restauranteNombre');

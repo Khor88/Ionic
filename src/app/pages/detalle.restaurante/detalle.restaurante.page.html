@@ -6,32 +6,59 @@
     <ion-button slot="end" color="danger" (click)="deleteRestaurante()">
       <ion-icon name="trash-outline"></ion-icon>
     </ion-button>
-      <ion-avatar slot="start" style="width: 100px;height: 100px;padding: 10px;">
-        <ion-img [src]="restaurante.logotipo"></ion-img>
-      </ion-avatar>
-    <ion-title>{{restaurante.nombre}}</ion-title>
+    <ion-avatar slot="start" style="width: 100px;height: 100px;padding: 10px;">
+      <ion-img [src]="restaurante.logotipo"></ion-img>
+    </ion-avatar>
+    <ion-title style="color: rgb(255, 255, 255);font-size: 30px;">{{restaurante.nombre}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
-      <ion-title>{{titulos[0]}}</ion-title>
-      
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{titulos[0]}}</ion-card-title>
+        </ion-card-header>
+        <!-- Imprimimos la descripción si es que tiene,sino mandamos un mensaje -->
+        <ion-card-content>
+          <p style="font-size: 25px;"
+            *ngIf="restaurante.descripcion && restaurante.descripcion.length === 0;else nodescripcion ">
+            <strong>{{restaurante.descripcion}}</strong></p>
+        </ion-card-content>
+        <ng-template #nodescripcion>
+          <p class="ion-text-center">{{mensajes[0]}}</p>
+        </ng-template>
+      </ion-card>
+      <ion-card *ngIf="restaurante.tenedores && restaurante.tenedores > 0">
+        <ion-card-header>
+          <ion-card-title>{{titulos[2]}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p style="display: flex;">
+            <ng-container *ngFor="let t of [].constructor(restaurante.tenedores)">
+              <ion-img style="width: 50px;" src="assets/imagenes/tenedor.png"></ion-img>
+            </ng-container>
+          </p>
+
+        </ion-card-content>
+
+      </ion-card>
+
     </ion-row>
     <ion-row>
-    <ion-col>
-      <ion-title>{{titulos[1]}}</ion-title>
+      <ion-col>
+        <ion-title>{{titulos[1]}}</ion-title>
+        <!-- Imprimimos los comentarios si es que tiene,sino mandamos un mensaje -->
         <ion-list *ngIf="restaurante.comentarios != undefined && restaurante.comentarios.length>0; else nocomments">
-         <ion-item *ngFor="let comentario of restaurante.comentarios">
+          <ion-item *ngFor="let comentario of restaurante.comentarios">
             {{comentario}}
-         </ion-item>
+          </ion-item>
         </ion-list>
         <ng-template #nocomments>
-          <p class="ion-text-center">No hay comentarios todavía...</p>
+          <p class="ion-text-center">{{mensajes[1]}}</p>
         </ng-template>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-

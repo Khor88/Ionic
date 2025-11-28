@@ -5,6 +5,7 @@ import { restaurante } from '../interface/restaurante.modelo';
   providedIn: 'root',
 })
 export class RestauranteService {
+  //Listado de restaurantes sobre el que vamos a trabajar
   private restaurantes: restaurante[] = [
     {
       logotipo: "assets/imagenes/taberna-primer-tramo.jpg",
@@ -49,18 +50,14 @@ export class RestauranteService {
     })
   }
 
+  //Metodo para guardar el Restaurante en nuestro listado con los parametros aportados en la llamada
   addRestaurante(
-    logotipo: string,
     nombre:string,
-    descripcion:string,
-    tenedores:number,
-    comentarios:string[]) {
+    logotipo: string
+) {
     this.restaurantes.push({
       nombre:nombre,
       logotipo:logotipo,
-      descripcion:descripcion,
-      tenedores:tenedores,
-      comentarios:comentarios
     })
   }
 

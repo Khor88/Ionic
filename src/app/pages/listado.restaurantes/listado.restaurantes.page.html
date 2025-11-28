@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Imprimimos el listado de restaurantes con sus propiedades solicitadas -->
   <ion-list>
     <ion-item *ngFor="let restaurante of restaurantes" [routerLink]="['/listado.restaurantes',restaurante.nombre]">
       <ion-avatar slot="start" style="width: 100px;height: 100px;">
@@ -12,11 +13,23 @@
       </ion-avatar>
       <ion-label>
         <h2 style="color: rgb(255, 255, 255);font-size: 30px;">{{restaurante.nombre}}</h2>
-        <p style="display: flex;"><ng-container *ngFor="let t of [].constructor(restaurante.tenedores)">
-          <ion-img style="width: 30px;" src="assets/imagenes/tenedor.png"></ion-img>
-        </ng-container></p>
+
+        <!-- Imprimimos el numero de tenedores si es que los tiene -->
+        <p style="display: flex;" *ngIf="restaurante.tenedores && restaurante.tenedores > 0">
+          <ng-container *ngFor="let t of [].constructor(restaurante.tenedores)">
+            <ion-img style="width: 30px;" src="assets/imagenes/tenedor.png"></ion-img>
+          </ng-container>
+        </p>
       </ion-label>
-      
+
     </ion-item>
   </ion-list>
+
+  <!-- Botón para añadir nuevo restaurante -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="nuevoRestaurante()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
